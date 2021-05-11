@@ -105,7 +105,7 @@ class Downloader:
     self.extracted_dir = self.args.output_dir / 'extracted'
 
   def download_json(self, url, name=None):
-    print(f'Downloading {url}...', end='', flush=True)
+    print(f'Downloading {url} ...', end='', flush=True)
 
     if name is None:
       name = os.path.basename(urllib.parse.urlparse(url).path)
