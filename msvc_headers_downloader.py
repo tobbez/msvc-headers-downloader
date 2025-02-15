@@ -103,8 +103,8 @@ def extract_vsix(vsix, path):
 
 class Downloader:
   def __init__(self):
-    self.arg_parser = argparse.ArgumentParser()
-    self.arg_parser.add_argument('--channel', default='https://aka.ms/vs/16/release/channel')
+    self.arg_parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    self.arg_parser.add_argument('--channel', default='https://aka.ms/vs/16/release/channel', help='url to the release channel to use')
     self.arg_parser.add_argument('output_dir', metavar='output-dir', type=Path)
 
     self.session = requests.Session()
