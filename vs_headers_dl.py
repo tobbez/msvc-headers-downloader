@@ -23,9 +23,20 @@ def find_manifest(channel):
     if i['id'] == 'Microsoft.VisualStudio.Manifests.VisualStudio':
       return i
 
+def is_sdk_package(p):
+  """Return True if the package is named like 'Win10SDK_10.0.19041'
+  (we want to exclude e.g. 'Win10SDK_IpOverUsb')
+  """
+  if not p['id'].startswith('Win10SDK_'):
+    return False
+  name, version = p['id'].split('_', 1)
+  return version and version[0].isdigit()
+
+
 def select_sdk_package(manifest):
-  sdks = [p for p in manifest['packages'] if p['id'].startswith('Win10SDK_')]
+  sdks = [p for p in manifest['packages'] if is_sdk_package(p)]
   sdks.sort(key=lambda x: parse_version(x['version']), reverse=True)
+  print(f'Selected SDK: {sdks[0]["id"]} / {sdks[0]["version"]} / {sdks[0]["type"]}')
   return sdks[0]
 
 def find_sdk_headers_msi(sdk):
