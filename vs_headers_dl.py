@@ -217,6 +217,8 @@ class Downloader:
     channel = self.download_json(self.args.channel)
 
     manifest_item = find_manifest(channel)
+    print(f'Found manifest, version: {manifest_item["version"]}', flush=True)
+
     manifest = self.download_json(manifest_item['payloads'][0]['url'])
 
     sdk = select_sdk_package(manifest)
